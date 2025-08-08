@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import model.Lotto;
+
 public class RandomLottoGenerator implements LottoGenerator {
     private final List<Integer> numberList = new ArrayList<>();
 
@@ -14,13 +16,13 @@ public class RandomLottoGenerator implements LottoGenerator {
     }
 
     @Override
-    public List<Integer> generate() {
+    public Lotto generate() {
         Collections.shuffle(numberList);
 
-        List<Integer> numList = numberList.subList(0, 6);
+        List<Integer> selected = new ArrayList<>(numberList.subList(0, 6));
 
-        Collections.sort(numList);
+        Collections.sort(selected);
 
-        return numList;
+        return new Lotto(selected);
     }
 }

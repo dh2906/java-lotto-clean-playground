@@ -2,7 +2,9 @@ package util;
 
 import java.util.List;
 
+import model.Lotto;
+
 public interface LottoGenerator {
 
-    List<Integer> generate();
+    Lotto generate();
 }
