@@ -19,7 +19,7 @@ public class LottoController {
         int amount = parsePurchaseAmount(inputAmount);
         validatePurchaseAmount(amount);
 
-        int count = amount % 1000;
+        int count = amount / 1000;
         lottoTicket.generateLottos(generator, count);
 
         outputView.printPurchaseCount(count);
