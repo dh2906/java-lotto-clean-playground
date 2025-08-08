@@ -18,4 +18,11 @@ public class InputView {
 
         return sc.nextLine();
     }
+
+    public String inputBonusNumber() {
+        System.out.println();
+        System.out.println("보너스 볼을 입력해 주세요.");
+
+        return sc.nextLine();
+    }
 }
