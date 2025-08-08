@@ -15,11 +15,11 @@ public class LottoController {
     private final OutputView outputView = new OutputView();
 
     public void run() {
-        String inputAmount = inputView.inputPurchaseAmount();
-        int amount = parsePurchaseAmount(inputAmount);
-        validatePurchaseAmount(amount);
+        String inputPurchaseAmount = inputView.inputPurchaseAmount();
+        int purchaseAmount = parsePurchaseAmount(inputPurchaseAmount);
+        validatePurchaseAmount(purchaseAmount);
 
-        int count = amount / 1000;
+        int count = purchaseAmount / 1000;
         lottoTicket.generateLottos(generator, count);
 
         outputView.printPurchaseCount(count);
