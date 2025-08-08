@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.List;
-
 import model.LottoResultAnalyzer;
 import model.LottoTicket;
 import model.WinningNumbers;

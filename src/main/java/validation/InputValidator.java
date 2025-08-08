@@ -1,7 +1,5 @@
 package validation;
 
-import java.util.List;
-
 import exception.ErrorMessage;
 
 public class InputValidator {
