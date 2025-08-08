@@ -20,4 +20,9 @@ public class Lotto {
             throw new IllegalArgumentException(ErrorMessage.INVALID_LOTTO_NUMBER_SIZE);
         }
     }
+
+    @Override
+    public String toString() {
+        return numbers.toString();
+    }
 }
