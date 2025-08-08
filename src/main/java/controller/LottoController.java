@@ -20,34 +20,50 @@ public class LottoController {
     private final LottoResultAnalyzer analyzer = new LottoResultAnalyzer();
 
     public void run() {
+        int purchaseAmount = getPurchaseAmount();
+        int manualCount = getManualCount(purchaseAmount);
+        LottoTicket lottoTicket = generateTickets(purchaseAmount, manualCount);
+        printTickets(lottoTicket, manualCount, purchaseAmount);
+        analyzeResult(lottoTicket, purchaseAmount);
+    }
+
+    private int getPurchaseAmount() {
+        String input = inputView.inputPurchaseAmount();
+        int amount = Parser.parseInt(input);
+        InputValidator.validatePurchaseAmount(amount);
+        return amount;
+    }
+
+    private int getManualCount(int purchaseAmount) {
+        String input = inputView.inputManualLottoCount();
+        int manualCount = Parser.parseInt(input);
+        InputValidator.validateManualCount(manualCount, purchaseAmount / 1000);
+        return manualCount;
+    }
+
+    private LottoTicket generateTickets(int purchaseAmount, int manualCount) {
         LottoTicket manualTicket = new LottoTicket();
         LottoTicket autoTicket = new LottoTicket();
-        LottoTicket lottoTicket = new LottoTicket();
 
-        String inputPurchaseAmount = inputView.inputPurchaseAmount();
-        int purchaseAmount = Parser.parseInt(inputPurchaseAmount);
-        InputValidator.validatePurchaseAmount(purchaseAmount);
+        List<String> manualInputs = inputView.inputManualLottoNumbers(manualCount);
+        manualTicket.generateManualLottos(manualInputs);
 
-        int totalCount = purchaseAmount / 1000;
-
-        String inputManualCount = inputView.inputManualLottoCount();
-        int manualCount = Parser.parseInt(inputManualCount);
-        InputValidator.validateManualCount(manualCount, totalCount);
-
-        List<String> inputManualNumbers = inputView.inputManualLottoNumbers(manualCount);
-        manualTicket.generateManualLottos(inputManualNumbers);
-
-        int autoCount = totalCount - manualCount;
+        int autoCount = (purchaseAmount / 1000) - manualCount;
         autoTicket.generateAutoLottos(generator, autoCount);
 
-        lottoTicket = LottoTicket.merge(manualTicket, autoTicket);
+        return LottoTicket.merge(manualTicket, autoTicket);
+    }
 
+    private void printTickets(LottoTicket lottoTicket, int manualCount, int purchaseAmount) {
+        int autoCount = (purchaseAmount / 1000) - manualCount;
         outputView.printPurchaseCount(manualCount, autoCount);
         outputView.printLottoNumbers(lottoTicket);
+    }
 
-        String inputWinningNumbers = inputView.inputWinningNumbers();
-        String inputBonusNumber = inputView.inputBonusNumber();
-        WinningNumbers winningNumbers = Parser.parseWinningNumbers(inputWinningNumbers, inputBonusNumber);
+    private void analyzeResult(LottoTicket lottoTicket, int purchaseAmount) {
+        String winningNums = inputView.inputWinningNumbers();
+        String bonusNum = inputView.inputBonusNumber();
+        WinningNumbers winningNumbers = Parser.parseWinningNumbers(winningNums, bonusNum);
 
         analyzer.analyze(lottoTicket, winningNumbers);
         outputView.printStatistics(analyzer.getResult(), analyzer.calculateProfitRate(purchaseAmount));
