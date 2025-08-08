@@ -30,12 +30,19 @@ public class OutputView {
         for (Rank rank : Rank.values()) {
             int count = result.getOrDefault(rank, 0);
 
-            System.out.printf("%d개 일치 (%s원)- %d개%n",
-                rank.getMatchCount(),
-                String.format("%,d", rank.getPrize()),
-                count);
+            if (rank == Rank.SECOND) {
+                System.out.printf("%d개 일치, 보너스 볼 일치 (%s원) - %d개%n",
+                    rank.getMatchCount(),
+                    String.format("%,d", rank.getPrize()),
+                    count);
+            } else {
+                System.out.printf("%d개 일치 (%s원) - %d개%n",
+                    rank.getMatchCount(),
+                    String.format("%,d", rank.getPrize()),
+                    count);
+            }
         }
 
-        System.out.printf("총 수익률은 %s입니다. %n", df.format(profitRate));
+        System.out.printf("총 수익률은 %s입니다.%n", df.format(profitRate));
     }
 }
