@@ -9,9 +9,9 @@ import model.WinningNumbers;
 
 public class Parser {
 
-    public static int parsePurchaseAmount(String inputAmount) {
+    public static int parseInt(String str) {
         try {
-            return Integer.parseInt(inputAmount);
+            return Integer.parseInt(str);
         } catch (NumberFormatException ex) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_NUMBER_FORMAT);
         }
@@ -27,6 +27,17 @@ public class Parser {
             int bonusNumber = Integer.parseInt(inputBonusNumber.trim());
 
             return new WinningNumbers(numbers, bonusNumber);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_NUMBER_FORMAT);
+        }
+    }
+
+    public static List<Integer> parseManualLottoNumbers(String manualNumbersStr) {
+        try {
+            return Arrays.stream(manualNumbersStr.split(","))
+                .map(String::trim)
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_NUMBER_FORMAT);
         }
