@@ -15,9 +15,13 @@ public class Lotto {
         this.numbers = Collections.unmodifiableList(numbers);
     }
 
+    public List<Integer> getNumbers() {
+        return numbers;
+    }
+
     private void validate(List<Integer> numbers) {
         if (numbers == null || numbers.size() != 6) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_LOTTO_NUMBER_SIZE);
+            throw new IllegalArgumentException(ErrorMessage.INVALID_NUMBERS_SIZE);
         }
     }
 
