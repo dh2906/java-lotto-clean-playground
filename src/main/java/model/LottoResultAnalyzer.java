@@ -1,7 +1,6 @@
 package model;
 
 import java.util.EnumMap;
-import java.util.List;
 import java.util.Map;
 
 public class LottoResultAnalyzer {
@@ -21,7 +20,9 @@ public class LottoResultAnalyzer {
                 .filter(winningNumbers.getNumbers()::contains)
                 .count();
 
-            Rank rank = Rank.of(matchCount);
+            boolean bonusMatched = lotto.getNumbers().contains(winningNumbers.getBonusNumber());
+
+            Rank rank = Rank.of(matchCount, bonusMatched);
 
             if (rank != null) {
                 result.put(rank, result.get(rank) + 1);
