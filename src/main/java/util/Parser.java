@@ -17,14 +17,16 @@ public class Parser {
         }
     }
 
-    public static WinningNumbers parseWinningNumbers(String inputWinningNumbers) {
+    public static WinningNumbers parseWinningNumbers(String inputWinningNumbers, String inputBonusNumber) {
         try {
             List<Integer> numbers = Arrays.stream(inputWinningNumbers.split(","))
                 .map(String::trim)
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
 
-            return new WinningNumbers(numbers);
+            int bonusNumber = Integer.parseInt(inputBonusNumber.trim());
+
+            return new WinningNumbers(numbers, bonusNumber);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_NUMBER_FORMAT);
         }
