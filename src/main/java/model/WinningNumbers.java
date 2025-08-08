@@ -8,15 +8,22 @@ import exception.ErrorMessage;
 public class WinningNumbers {
 
     private final List<Integer> numbers;
+    private final int bonusNumber;
 
-    public WinningNumbers(List<Integer> numbers) {
+    public WinningNumbers(List<Integer> numbers, int bonusNumber) {
         validateWinningNumbers(numbers);
+        validateBonusNumber(bonusNumber, numbers);
 
         this.numbers = Collections.unmodifiableList(numbers);
+        this.bonusNumber = bonusNumber;
     }
 
     public List<Integer> getNumbers() {
         return numbers;
+    }
+
+    public int getBonusNumber() {
+        return bonusNumber;
     }
 
     private void validateWinningNumbers(List<Integer> winningNumbers) {
@@ -40,8 +47,17 @@ public class WinningNumbers {
     private void validateNumbersRange(List<Integer> numbers) {
         for (int number : numbers) {
             if (number < 1 || number > 45) {
-                throw new IllegalArgumentException(ErrorMessage.INVALID_WINNING_NUMBER_RANGE);
+                throw new IllegalArgumentException(ErrorMessage.INVALID_NUMBER_RANGE);
             }
+        }
+    }
+
+    private void validateBonusNumber(int bonusNumber, List<Integer> numbers) {
+        if (bonusNumber < 1 || bonusNumber > 45) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_NUMBER_RANGE);
+        }
+        if (numbers.contains(bonusNumber)) {
+            throw new IllegalArgumentException(ErrorMessage.DUPLICATE_BONUS_NUMBER);
         }
     }
 }
