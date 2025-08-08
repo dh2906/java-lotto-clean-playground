@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import model.LottoResultAnalyzer;
 import model.LottoTicket;
 import model.WinningNumbers;
 import util.LottoGenerator;
@@ -17,6 +18,7 @@ public class LottoController {
     private final LottoGenerator generator = new RandomLottoGenerator();
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
+    private final LottoResultAnalyzer analyzer = new LottoResultAnalyzer();
 
     public void run() {
         String inputPurchaseAmount = inputView.inputPurchaseAmount();
@@ -31,6 +33,9 @@ public class LottoController {
 
         String inputWinningNumbers = inputView.inputWinningNumbers();
         WinningNumbers winningNumbers = Parser.parseWinningNumbers(inputWinningNumbers);
+
+        analyzer.analyze(lottoTicket, winningNumbers);
+        outputView.printStatistics(analyzer.getResult(), analyzer.calculateProfitRate(purchaseAmount));
     }
 
 }
