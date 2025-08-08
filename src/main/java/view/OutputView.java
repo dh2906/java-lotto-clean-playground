@@ -11,9 +11,9 @@ public class OutputView {
 
     private static final DecimalFormat df = new DecimalFormat("0.##");
 
-    public void printPurchaseCount(int count) {
+    public void printPurchaseCount(int manualCount, int autoCount) {
         System.out.println();
-        System.out.printf("%d개를 구매했습니다. \n", count);
+        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다. \n", manualCount, autoCount);
     }
 
     public void printLottoNumbers(LottoTicket lottoTicket) {
