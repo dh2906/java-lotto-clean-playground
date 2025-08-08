@@ -1,9 +1,13 @@
 package controller;
 
-import exception.ErrorMessage;
+import java.util.List;
+
 import model.LottoTicket;
+import model.WinningNumbers;
 import util.LottoGenerator;
+import util.Parser;
 import util.RandomLottoGenerator;
+import validation.InputValidator;
 import view.InputView;
 import view.OutputView;
 
@@ -16,27 +20,17 @@ public class LottoController {
 
     public void run() {
         String inputPurchaseAmount = inputView.inputPurchaseAmount();
-        int purchaseAmount = parsePurchaseAmount(inputPurchaseAmount);
-        validatePurchaseAmount(purchaseAmount);
+        int purchaseAmount = Parser.parsePurchaseAmount(inputPurchaseAmount);
+        InputValidator.validatePurchaseAmount(purchaseAmount);
 
         int count = purchaseAmount / 1000;
         lottoTicket.generateLottos(generator, count);
 
         outputView.printPurchaseCount(count);
         outputView.printLottoNumbers(lottoTicket);
+
+        String inputWinningNumbers = inputView.inputWinningNumbers();
+        WinningNumbers winningNumbers = Parser.parseWinningNumbers(inputWinningNumbers);
     }
 
-    private int parsePurchaseAmount(String inputAmount) {
-        try {
-            return Integer.parseInt(inputAmount);
-        } catch (NumberFormatException ex) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_NUMBER_FORMAT);
-        }
-    }
-
-    private void validatePurchaseAmount(int amount) {
-        if (amount <= 0 || amount % 1000 != 0) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_AMOUNT_VALUE);
-        }
-    }
 }
