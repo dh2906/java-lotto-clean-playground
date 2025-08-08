@@ -11,4 +11,11 @@ public class InputView {
 
         return sc.nextLine();
     }
+
+    public String inputWinningNumbers() {
+        System.out.println();
+        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+
+        return sc.nextLine();
+    }
 }
