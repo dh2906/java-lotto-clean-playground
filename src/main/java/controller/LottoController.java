@@ -30,7 +30,8 @@ public class LottoController {
         outputView.printLottoNumbers(lottoTicket);
 
         String inputWinningNumbers = inputView.inputWinningNumbers();
-        WinningNumbers winningNumbers = Parser.parseWinningNumbers(inputWinningNumbers);
+        String inputBonusNumber = inputView.inputBonusNumber();
+        WinningNumbers winningNumbers = Parser.parseWinningNumbers(inputWinningNumbers, inputBonusNumber);
 
         analyzer.analyze(lottoTicket, winningNumbers);
         outputView.printStatistics(analyzer.getResult(), analyzer.calculateProfitRate(purchaseAmount));
