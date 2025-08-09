@@ -24,6 +24,9 @@ public class AutoLottoTicketTest {
 
     @Nested
     public class TestLottoGenerator implements LottoGenerator {
+
+        public TestLottoGenerator() { }
+
         @Override
         public Lotto generate() {
             return new Lotto(
