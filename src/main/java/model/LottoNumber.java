@@ -2,8 +2,7 @@ package model;
 
 import exception.CustomException;
 import exception.ErrorMessage;
-
-import javax.swing.undo.CannotUndoException;
+import util.Parser;
 
 public class LottoNumber {
 
@@ -18,9 +17,20 @@ public class LottoNumber {
         this.number = number;
     }
 
+    public LottoNumber(String strNumber) {
+        this.number = Parser.parseInt(strNumber);
+
+        validate(this.number);
+    }
+
     private void validate(int number) {
         if (number < MIN_NUMBER || number > MAX_NUMBER) {
             throw new CustomException(ErrorMessage.INVALID_NUMBER_RANGE);
         }
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(number);
     }
 }
