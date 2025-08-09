@@ -2,9 +2,7 @@ package controller;
 
 import java.util.List;
 
-import model.LottoResultAnalyzer;
-import model.LottoTicket;
-import model.WinningNumbers;
+import model.*;
 import util.LottoGenerator;
 import util.Parser;
 import util.RandomLottoGenerator;
@@ -42,14 +40,11 @@ public class LottoController {
     }
 
     private LottoTicket generateTickets(int purchaseAmount, int manualCount) {
-        LottoTicket manualTicket = new LottoTicket();
-        LottoTicket autoTicket = new LottoTicket();
-
         List<String> manualInputs = inputView.inputManualLottoNumbers(manualCount);
-        manualTicket.generateManualLottos(manualInputs);
+        ManualLottoTicket manualTicket = new ManualLottoTicket(manualInputs);
 
         int autoCount = (purchaseAmount / 1000) - manualCount;
-        autoTicket.generateAutoLottos(generator, autoCount);
+        AutoLottoTicket autoTicket = new AutoLottoTicket(generator, autoCount);
 
         return LottoTicket.merge(manualTicket, autoTicket);
     }
