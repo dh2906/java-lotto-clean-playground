@@ -20,7 +20,7 @@ public class LottoController {
     public void run() {
         PurchaseAmount purchaseAmount = getPurchaseAmount();
         ManualCount manualCount = inputManualCount(purchaseAmount);
-        int autoCount = calculateAutoCount(purchaseAmount, manualCount);
+        AutoCount autoCount = new AutoCount(calculateAutoCount(purchaseAmount, manualCount));
 
         LottoTicket lottoTicket = generateTickets(manualCount, autoCount);
         printTickets(lottoTicket, manualCount, autoCount);
@@ -35,7 +35,7 @@ public class LottoController {
         return new ManualCount(inputView.inputManualLottoCount(), purchaseAmount);
     }
 
-    private LottoTicket generateTickets(ManualCount manualCount, int autoCount) {
+    private LottoTicket generateTickets(ManualCount manualCount, AutoCount autoCount) {
         List<String> manualInputs = inputView.inputManualLottoNumbers(manualCount);
 
         ManualLottoTicket manualTicket = new ManualLottoTicket(manualInputs);
@@ -44,7 +44,7 @@ public class LottoController {
         return LottoTicket.merge(manualTicket, autoTicket);
     }
 
-    private void printTickets(LottoTicket lottoTicket, ManualCount manualCount, int autoCount) {
+    private void printTickets(LottoTicket lottoTicket, ManualCount manualCount, AutoCount autoCount) {
         outputView.printPurchaseCount(manualCount, autoCount);
         outputView.printLottoNumbers(lottoTicket);
     }

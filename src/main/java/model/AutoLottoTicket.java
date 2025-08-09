@@ -8,14 +8,14 @@ import java.util.List;
 
 public class AutoLottoTicket extends LottoTicket {
 
-    public AutoLottoTicket(LottoGenerator generator, int count) {
+    public AutoLottoTicket(LottoGenerator generator, AutoCount count) {
         super(generateAutoLottos(generator, count));
     }
 
-    private static List<Lotto> generateAutoLottos(LottoGenerator generator, int count) {
+    private static List<Lotto> generateAutoLottos(LottoGenerator generator, AutoCount count) {
         List<Lotto> temp = new ArrayList<>();
 
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count.getAutoCount(); i++) {
             temp.add(generator.generate());
         }
 

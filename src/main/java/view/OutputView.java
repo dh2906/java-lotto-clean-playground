@@ -3,18 +3,15 @@ package view;
 import java.text.DecimalFormat;
 import java.util.Map;
 
-import model.Lotto;
-import model.LottoTicket;
-import model.ManualCount;
-import model.Rank;
+import model.*;
 
 public class OutputView {
 
     private static final DecimalFormat df = new DecimalFormat("0.##");
 
-    public void printPurchaseCount(ManualCount manualCount, int autoCount) {
+    public void printPurchaseCount(ManualCount manualCount, AutoCount autoCount) {
         System.out.println();
-        System.out.printf("수동으로 %s장, 자동으로 %d개를 구매했습니다. \n", manualCount, autoCount);
+        System.out.printf("수동으로 %s장, 자동으로 %s개를 구매했습니다. \n", manualCount, autoCount);
     }
 
     public void printLottoNumbers(LottoTicket lottoTicket) {
