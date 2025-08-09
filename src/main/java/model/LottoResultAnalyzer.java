@@ -15,17 +15,17 @@ public class LottoResultAnalyzer {
 
     public void analyze(LottoTicket lottoTicket, WinningNumbers winningNumbers) {
         for (Lotto lotto : lottoTicket.getLottos()) {
-            int matchCount = (int) lotto.getNumbers()
+            int matchCount = (int) lotto.getLottoNumbers()
                 .stream()
-                .filter(winningNumbers.getNumbers()::contains)
+                .filter(winningNumbers.getWinningLotto().getLottoNumbers()::contains)
                 .count();
 
-            boolean bonusMatched = lotto.getNumbers().contains(winningNumbers.getBonusNumber());
+            boolean bonusMatched = lotto.getLottoNumbers().contains(winningNumbers.getBonusNumber());
 
             Rank rank = Rank.of(matchCount, bonusMatched);
 
             if (rank != null) {
-                result.put(rank, result.get(rank) + 1);
+                result.put(rank, result.getOrDefault(rank, 0) + 1);
             }
         }
     }

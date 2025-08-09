@@ -1,63 +1,37 @@
 package model;
 
-import java.util.Collections;
-import java.util.List;
-
 import exception.CustomException;
 import exception.ErrorMessage;
+import util.Parser;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class WinningNumbers {
 
-    private final List<Integer> numbers;
-    private final int bonusNumber;
+    private final Lotto winningLotto;
+    private final LottoNumber bonusNumber;
 
-    public WinningNumbers(List<Integer> numbers, int bonusNumber) {
-        validateWinningNumbers(numbers);
-        validateBonusNumber(bonusNumber, numbers);
+    public WinningNumbers(String inputWinningNumbers, String inputBonusNumber) {
+        List<LottoNumber> parsedNumbers = Parser.parseManualLottoNumbers(inputWinningNumbers);
 
-        this.numbers = Collections.unmodifiableList(numbers);
-        this.bonusNumber = bonusNumber;
+        this.winningLotto = new Lotto(parsedNumbers);
+        this.bonusNumber = new LottoNumber(inputBonusNumber);
+
+        validateBonusNumber(this.bonusNumber, this.winningLotto);
     }
 
-    public List<Integer> getNumbers() {
-        return numbers;
+    public Lotto getWinningLotto() {
+        return winningLotto;
     }
 
-    public int getBonusNumber() {
+    public LottoNumber getBonusNumber() {
         return bonusNumber;
     }
 
-    private void validateWinningNumbers(List<Integer> winningNumbers) {
-        validateNumbersSize(winningNumbers);
-        validateNumbersDuplicate(winningNumbers);
-        validateNumbersRange(winningNumbers);
-    }
-
-    private void validateNumbersSize(List<Integer> numbers) {
-        if (numbers.size() != 6) {
-            throw new CustomException(ErrorMessage.INVALID_NUMBERS_SIZE);
-        }
-    }
-
-    private void validateNumbersDuplicate(List<Integer> numbers) {
-        if (numbers.stream().distinct().count() != 6) {
-            throw new CustomException(ErrorMessage.DUPLICATE_WINNING_NUMBER);
-        }
-    }
-
-    private void validateNumbersRange(List<Integer> numbers) {
-        for (int number : numbers) {
-            if (number < 1 || number > 45) {
-                throw new CustomException(ErrorMessage.INVALID_NUMBER_RANGE);
-            }
-        }
-    }
-
-    private void validateBonusNumber(int bonusNumber, List<Integer> numbers) {
-        if (bonusNumber < 1 || bonusNumber > 45) {
-            throw new CustomException(ErrorMessage.INVALID_NUMBER_RANGE);
-        }
-        if (numbers.contains(bonusNumber)) {
+    private void validateBonusNumber(LottoNumber bonusNumber, Lotto winningLotto) {
+        if (winningLotto.getLottoNumbers().contains(bonusNumber)) {
             throw new CustomException(ErrorMessage.DUPLICATE_BONUS_NUMBER);
         }
     }

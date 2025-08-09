@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import exception.CustomException;
 import exception.ErrorMessage;
+import model.LottoNumber;
 import model.WinningNumbers;
 
 public class Parser {
@@ -18,26 +19,12 @@ public class Parser {
         }
     }
 
-    public static WinningNumbers parseWinningNumbers(String inputWinningNumbers, String inputBonusNumber) {
-        try {
-            List<Integer> numbers = Arrays.stream(inputWinningNumbers.split(","))
-                .map(String::trim)
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
-
-            int bonusNumber = Integer.parseInt(inputBonusNumber.trim());
-
-            return new WinningNumbers(numbers, bonusNumber);
-        } catch (NumberFormatException e) {
-            throw new CustomException(ErrorMessage.INVALID_NUMBER_FORMAT);
-        }
-    }
-
-    public static List<Integer> parseManualLottoNumbers(String manualNumbersStr) {
+    public static List<LottoNumber> parseManualLottoNumbers(String manualNumbersStr) {
         try {
             return Arrays.stream(manualNumbersStr.split(","))
                 .map(String::trim)
                 .map(Integer::parseInt)
+                .map(LottoNumber::new)
                 .collect(Collectors.toList());
         } catch (NumberFormatException e) {
             throw new CustomException(ErrorMessage.INVALID_NUMBER_FORMAT);

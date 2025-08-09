@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import model.Lotto;
+import model.LottoNumber;
 
 public class RandomLottoGenerator implements LottoGenerator {
     private final List<Integer> numberList = new ArrayList<>();
@@ -23,6 +24,10 @@ public class RandomLottoGenerator implements LottoGenerator {
 
         Collections.sort(selected);
 
-        return new Lotto(selected);
+        List<LottoNumber> lottoNumbers = selected.stream()
+            .map(LottoNumber::new)
+            .toList();
+
+        return new Lotto(lottoNumbers);
     }
 }
