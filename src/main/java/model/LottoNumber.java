@@ -13,12 +13,12 @@ public class LottoNumber {
     private static final int MAX_NUMBER = 45;
 
     public LottoNumber(int number) {
-        validateRange(number);
+        validate(number);
 
         this.number = number;
     }
 
-    private void validateRange(int number) {
+    private void validate(int number) {
         if (number < MIN_NUMBER || number > MAX_NUMBER) {
             throw new CustomException(ErrorMessage.INVALID_NUMBER_RANGE);
         }
