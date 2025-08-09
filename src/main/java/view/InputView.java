@@ -1,5 +1,7 @@
 package view;
 
+import model.ManualCount;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -34,13 +36,13 @@ public class InputView {
         return sc.nextLine();
     }
 
-    public List<String> inputManualLottoNumbers(int count) {
+    public List<String> inputManualLottoNumbers(ManualCount count) {
         System.out.println();
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
 
         List<String> manualNumbers = new ArrayList<>();
 
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count.getManualCount(); i++) {
             String numbers = sc.nextLine();
             manualNumbers.add(numbers);
         }

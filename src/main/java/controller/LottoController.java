@@ -20,8 +20,8 @@ public class LottoController {
 
     public void run() {
         PurchaseAmount purchaseAmount = getPurchaseAmount();
-        int manualCount = inputManualCount(purchaseAmount);
-        int autoCount = purchaseAmount.getTotalLottoCount() - manualCount;
+        ManualCount manualCount = inputManualCount(purchaseAmount);
+        int autoCount = calculateAutoCount(purchaseAmount, manualCount);
 
         LottoTicket lottoTicket = generateTickets(manualCount, autoCount);
         printTickets(lottoTicket, manualCount, autoCount);
@@ -32,16 +32,11 @@ public class LottoController {
         return new PurchaseAmount(inputView.inputPurchaseAmount());
     }
 
-    private int inputManualCount(PurchaseAmount purchaseAmount) {
-        String input = inputView.inputManualLottoCount();
-        int manualCount = Parser.parseInt(input);
-
-        InputValidator.validateManualCount(manualCount, purchaseAmount.getTotalLottoCount());
-
-        return manualCount;
+    private ManualCount inputManualCount(PurchaseAmount purchaseAmount) {
+        return new ManualCount(inputView.inputManualLottoCount(), purchaseAmount);
     }
 
-    private LottoTicket generateTickets(int manualCount, int autoCount) {
+    private LottoTicket generateTickets(ManualCount manualCount, int autoCount) {
         List<String> manualInputs = inputView.inputManualLottoNumbers(manualCount);
 
         ManualLottoTicket manualTicket = new ManualLottoTicket(manualInputs);
@@ -50,7 +45,7 @@ public class LottoController {
         return LottoTicket.merge(manualTicket, autoTicket);
     }
 
-    private void printTickets(LottoTicket lottoTicket, int manualCount, int autoCount) {
+    private void printTickets(LottoTicket lottoTicket, ManualCount manualCount, int autoCount) {
         outputView.printPurchaseCount(manualCount, autoCount);
         outputView.printLottoNumbers(lottoTicket);
     }
@@ -63,5 +58,9 @@ public class LottoController {
 
         analyzer.analyze(lottoTicket, winningNumbers);
         outputView.printStatistics(analyzer.getResult(), analyzer.calculateProfitRate(purchaseAmount));
+    }
+
+    private int calculateAutoCount(PurchaseAmount purchaseAmount, ManualCount manualCount) {
+        return purchaseAmount.getTotalLottoCount() - manualCount.getManualCount();
     }
 }

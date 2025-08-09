@@ -5,13 +5,14 @@ import java.util.Map;
 
 import model.Lotto;
 import model.LottoTicket;
+import model.ManualCount;
 import model.Rank;
 
 public class OutputView {
 
     private static final DecimalFormat df = new DecimalFormat("0.##");
 
-    public void printPurchaseCount(int manualCount, int autoCount) {
+    public void printPurchaseCount(ManualCount manualCount, int autoCount) {
         System.out.println();
         System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다. \n", manualCount, autoCount);
     }
