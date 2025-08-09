@@ -1,13 +1,12 @@
 package util;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import exception.CustomException;
 import exception.ErrorMessage;
 import model.LottoNumber;
-import model.WinningNumbers;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Parser {
 
