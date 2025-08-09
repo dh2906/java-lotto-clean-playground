@@ -8,26 +8,28 @@ import exception.ErrorMessage;
 
 public class Lotto {
 
-    private final List<Integer> numbers;
+    private final List<LottoNumber> lottoNumbers;
 
-    public Lotto(List<Integer> numbers) {
-        validate(numbers);
+    private static final int LOTTO_NUMBERS_LENGTH = 6;
 
-        this.numbers = Collections.unmodifiableList(numbers);
+    public Lotto(List<LottoNumber> lottoNumbers) {
+        validate(lottoNumbers);
+
+        this.lottoNumbers = Collections.unmodifiableList(lottoNumbers);
     }
 
-    public List<Integer> getNumbers() {
-        return numbers;
+    public List<LottoNumber> getLottoNumbers() {
+        return lottoNumbers;
     }
 
-    private void validate(List<Integer> numbers) {
-        if (numbers == null || numbers.size() != 6) {
+    private void validate(List<LottoNumber> lottoNumbers) {
+        if (lottoNumbers == null || lottoNumbers.size() != LOTTO_NUMBERS_LENGTH) {
             throw new CustomException(ErrorMessage.INVALID_NUMBERS_SIZE);
         }
     }
 
     @Override
     public String toString() {
-        return numbers.toString();
+        return lottoNumbers.toString();
     }
 }
