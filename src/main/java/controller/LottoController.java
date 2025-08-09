@@ -17,32 +17,26 @@ public class LottoController {
     private final OutputView outputView = new OutputView();
     private final LottoResultAnalyzer analyzer = new LottoResultAnalyzer();
 
-    private static final int LOTTO_PRICE = 1000;
 
     public void run() {
-        int purchaseAmount = getPurchaseAmount();
-        int manualCount = getManualCount(purchaseAmount);
-        int autoCount = (purchaseAmount / LOTTO_PRICE) - manualCount;
+        PurchaseAmount purchaseAmount = getPurchaseAmount();
+        int manualCount = inputManualCount(purchaseAmount);
+        int autoCount = purchaseAmount.getTotalLottoCount() - manualCount;
 
         LottoTicket lottoTicket = generateTickets(manualCount, autoCount);
         printTickets(lottoTicket, manualCount, autoCount);
         analyzeResult(lottoTicket, purchaseAmount);
     }
 
-    private int getPurchaseAmount() {
-        String input = inputView.inputPurchaseAmount();
-        int amount = Parser.parseInt(input);
-
-        InputValidator.validatePurchaseAmount(amount);
-
-        return amount;
+    private PurchaseAmount getPurchaseAmount() {
+        return new PurchaseAmount(inputView.inputPurchaseAmount());
     }
 
-    private int getManualCount(int purchaseAmount) {
+    private int inputManualCount(PurchaseAmount purchaseAmount) {
         String input = inputView.inputManualLottoCount();
         int manualCount = Parser.parseInt(input);
 
-        InputValidator.validateManualCount(manualCount, purchaseAmount / 1000);
+        InputValidator.validateManualCount(manualCount, purchaseAmount.getTotalLottoCount());
 
         return manualCount;
     }
@@ -61,7 +55,7 @@ public class LottoController {
         outputView.printLottoNumbers(lottoTicket);
     }
 
-    private void analyzeResult(LottoTicket lottoTicket, int purchaseAmount) {
+    private void analyzeResult(LottoTicket lottoTicket, PurchaseAmount purchaseAmount) {
         String winningNums = inputView.inputWinningNumbers();
         String bonusNum = inputView.inputBonusNumber();
 

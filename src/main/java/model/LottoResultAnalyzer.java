@@ -34,11 +34,11 @@ public class LottoResultAnalyzer {
         return result;
     }
 
-    public double calculateProfitRate(int purchaseAmount) {
+    public double calculateProfitRate(PurchaseAmount purchaseAmount) {
         long totalWinning = result.entrySet().stream()
             .mapToLong(entry -> entry.getKey().getPrize() * entry.getValue())
             .sum();
 
-        return (double) totalWinning / purchaseAmount;
+        return (double) totalWinning / purchaseAmount.getAmount();
     }
 }
