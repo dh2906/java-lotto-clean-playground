@@ -1,14 +1,13 @@
 package controller;
 
-import java.util.List;
-
 import model.*;
 import util.LottoGenerator;
 import util.Parser;
 import util.RandomLottoGenerator;
-import validation.InputValidator;
 import view.InputView;
 import view.OutputView;
+
+import java.util.List;
 
 public class LottoController {
 
