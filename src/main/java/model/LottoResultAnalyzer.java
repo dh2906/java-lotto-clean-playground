@@ -36,7 +36,7 @@ public class LottoResultAnalyzer {
 
     public double calculateProfitRate(PurchaseAmount purchaseAmount) {
         long totalWinning = result.entrySet().stream()
-            .mapToLong(entry -> entry.getKey().getPrize() * entry.getValue())
+            .mapToLong(entry -> (long) entry.getKey().getPrize() * entry.getValue())
             .sum();
 
         return (double) totalWinning / purchaseAmount.getAmount();
