@@ -33,4 +33,17 @@ public class LottoNumber {
     public String toString() {
         return String.valueOf(number);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LottoNumber that = (LottoNumber) o;
+        return number == that.number;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(number);
+    }
 }
