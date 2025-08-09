@@ -21,7 +21,7 @@ public class LottoTicket {
         return lottos;
     }
 
-    public static LottoTicket merge(LottoTicket manual, LottoTicket auto) {
+    public static LottoTicket merge(ManualLottoTicket manual, AutoLottoTicket auto) {
         List<Lotto> combined = new ArrayList<>();
 
         if (manual != null && manual.getLottos() != null) {
