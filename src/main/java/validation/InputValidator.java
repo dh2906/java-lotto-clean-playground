@@ -1,12 +1,13 @@
 package validation;
 
+import exception.CustomException;
 import exception.ErrorMessage;
 
 public class InputValidator {
 
     public static void validatePurchaseAmount(int amount) {
         if (amount <= 0 || amount % 1000 != 0) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_AMOUNT_VALUE);
+            throw new CustomException(ErrorMessage.INVALID_AMOUNT_VALUE);
         }
     }
 
@@ -17,13 +18,13 @@ public class InputValidator {
 
     private static void validateManualCountNotNegative(int manualCount) {
         if (manualCount < 0) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_MANUAL_COUNT_NEGATIVE);
+            throw new CustomException(ErrorMessage.INVALID_MANUAL_COUNT_NEGATIVE);
         }
     }
 
     private static void validateManualCountNotExceedTotal(int manualCount, int totalCount) {
         if (manualCount > totalCount) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_MANUAL_COUNT_EXCEED);
+            throw new CustomException(ErrorMessage.INVALID_MANUAL_COUNT_EXCEED);
         }
     }
 }

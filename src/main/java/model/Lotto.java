@@ -3,6 +3,7 @@ package model;
 import java.util.Collections;
 import java.util.List;
 
+import exception.CustomException;
 import exception.ErrorMessage;
 
 public class Lotto {
@@ -21,7 +22,7 @@ public class Lotto {
 
     private void validate(List<Integer> numbers) {
         if (numbers == null || numbers.size() != 6) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_NUMBERS_SIZE);
+            throw new CustomException(ErrorMessage.INVALID_NUMBERS_SIZE);
         }
     }
 

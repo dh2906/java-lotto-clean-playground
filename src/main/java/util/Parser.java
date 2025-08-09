@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import exception.CustomException;
 import exception.ErrorMessage;
 import model.WinningNumbers;
 
@@ -13,7 +14,7 @@ public class Parser {
         try {
             return Integer.parseInt(str);
         } catch (NumberFormatException ex) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_NUMBER_FORMAT);
+            throw new CustomException(ErrorMessage.INVALID_NUMBER_FORMAT);
         }
     }
 
@@ -28,7 +29,7 @@ public class Parser {
 
             return new WinningNumbers(numbers, bonusNumber);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_NUMBER_FORMAT);
+            throw new CustomException(ErrorMessage.INVALID_NUMBER_FORMAT);
         }
     }
 
@@ -39,7 +40,7 @@ public class Parser {
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_NUMBER_FORMAT);
+            throw new CustomException(ErrorMessage.INVALID_NUMBER_FORMAT);
         }
     }
 }
