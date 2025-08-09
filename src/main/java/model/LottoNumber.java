@@ -23,6 +23,10 @@ public class LottoNumber {
         validate(this.number);
     }
 
+    public int getNumber() {
+        return number;
+    }
+
     private void validate(int number) {
         if (number < MIN_NUMBER || number > MAX_NUMBER) {
             throw new CustomException(ErrorMessage.INVALID_NUMBER_RANGE);
