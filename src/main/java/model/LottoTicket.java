@@ -11,7 +11,7 @@ import util.Parser;
 
 public class LottoTicket {
 
-    private List<Lotto> lottos;
+    private final List<Lotto> lottos;
 
     public LottoTicket(List<Lotto> lottos) {
         this.lottos = lottos;
