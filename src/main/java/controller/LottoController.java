@@ -2,7 +2,6 @@ package controller;
 
 import model.*;
 import util.LottoGenerator;
-import util.Parser;
 import util.RandomLottoGenerator;
 import view.InputView;
 import view.OutputView;
