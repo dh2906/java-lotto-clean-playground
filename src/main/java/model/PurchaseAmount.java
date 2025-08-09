@@ -2,6 +2,7 @@ package model;
 
 import exception.CustomException;
 import exception.ErrorMessage;
+import util.Parser;
 
 public class PurchaseAmount {
 
@@ -10,18 +11,17 @@ public class PurchaseAmount {
     private static final int LOTTO_PRICE = 1000;
 
     public PurchaseAmount(String inputAmount) {
-        this.amount = validate(inputAmount);
+        this.amount = Parser.parseInt(inputAmount);
+        validate(amount);
     }
 
     public int getAmount() {
         return amount;
     }
 
-    private int validate(String inputAmount) {
-        try {
-            return Integer.parseInt(inputAmount);
-        } catch (NumberFormatException ex) {
-            throw new CustomException(ErrorMessage.INVALID_NUMBER_FORMAT);
+    private void validate(int amount) {
+        if (amount <= 0 || amount % 1000 != 0) {
+            throw new CustomException(ErrorMessage.INVALID_AMOUNT_VALUE);
         }
     }
 
