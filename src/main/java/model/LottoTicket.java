@@ -13,23 +13,8 @@ public class LottoTicket {
 
     private List<Lotto> lottos;
 
-    public void generateAutoLottos(LottoGenerator generator, int count) {
-        List<Lotto> temp = new ArrayList<>();
-
-        for (int i = 0; i < count; i++) {
-            temp.add(generator.generate());
-        }
-
-        this.lottos = Collections.unmodifiableList(temp);
-    }
-
-    public void generateManualLottos(List<String> manualNumbersStrList) {
-        List<Lotto> manualLottos = manualNumbersStrList.stream()
-            .map(Parser::parseManualLottoNumbers)
-            .map(Lotto::new)
-            .toList();
-
-        this.lottos = Collections.unmodifiableList(manualLottos);
+    public LottoTicket(List<Lotto> lottos) {
+        this.lottos = lottos;
     }
 
     public List<Lotto> getLottos() {
@@ -47,9 +32,6 @@ public class LottoTicket {
             combined.addAll(auto.getLottos());
         }
 
-        LottoTicket mergedTicket = new LottoTicket();
-        mergedTicket.lottos = Collections.unmodifiableList(combined);
-
-        return mergedTicket;
+        return new LottoTicket(Collections.unmodifiableList(combined));
     }
 }
